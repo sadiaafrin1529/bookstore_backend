@@ -1,9 +1,11 @@
+import { response } from 'express';
 import User from '../model/user.model.js'
 import bcryptjs from 'bcryptjs'
 
 
 
 export const signUp = async (req, res) => {
+    console.log(req.body)
     try {
         const { fullname, email, password } = req.body;
         //user age theke register ki na seta find korbo
@@ -20,7 +22,7 @@ export const signUp = async (req, res) => {
             email: email,
             password:hashPassword 
         })
-        //data ashar por save korbo
+        // data ashar por save korbo
       await  createdUser.save()
         res.status(201).json({
             message: "User Created Sucessfully",
@@ -30,8 +32,10 @@ export const signUp = async (req, res) => {
                 email: createdUser.email
                 
             }
-        })
+            })
+        
     }
+
     catch (error) {
         console.log("error" + error.message)
            res.status(500).json({message: "Internal server error"})
